@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Facts Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .fact-container {
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .social-buttons {
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fun Facts Generator</h1>
+        <div id="fact-container" class="fact-container">
+            <!-- Fun fact will be displayed here -->
+        </div>
+        <button id="generate-fact">Generate Another Fun Fact</button>
+        <div class="social-buttons">
+            <button id="share-twitter">Share on Twitter</button>
+            <button id="share-linkedin">Share on LinkedIn</button>
+        </div>
+    </div>
+    <script>
+        const facts = [
+            "Crocodiles have been around for over 200 million years, making them one of the oldest living species on Earth.",
+            "Unlike most reptiles, crocodiles have a four-chambered heart, similar to birds and mammals, which allows for more efficient oxygenation of their blood.",
+            "Crocodiles can hold their breath underwater for up to an hour by slowing their heart rate to just 2-3 beats per minute.",
+            "The saltwater crocodile is the largest living reptile, with some individuals growing over 23 feet long and weighing more than 2,200 pounds.",
+            "Crocodiles have a special valve in their throat called a palatal valve that allows them to open their mouths underwater without drowning.",
+            "Crocodiles are known for their powerful bite, which can exert a force of over 3,700 pounds per square inch, the strongest of any animal.",
+            "Despite their tough exterior, crocodiles are surprisingly sensitive to touch, with nerve endings on their skin that can detect even the slightest vibrations in the water.",
+            "Crocodiles use tools! They have been observed using sticks and branches to lure birds looking for nesting materials.",
+            "Crocodiles can replace each of their 80 teeth up to 50 times in their lifetime, ensuring they always have sharp teeth for catching prey.",
+            "Crocodiles communicate with each other through a variety of vocalizations, including growls, hisses, and even a sound similar to a bark."
+        ];
+
+        const factContainer = document.getElementById('fact-container');
+        const generateFactButton = document.getElementById('generate-fact');
+        const shareTwitterButton = document.getElementById('share-twitter');
+        const shareLinkedInButton = document.getElementById('share-linkedin');
+
+        function getRandomFact() {
+            const randomIndex = Math.floor(Math.random() * facts.length);
+            return facts[randomIndex];
+        }
+
+        function updateFact() {
+            const fact = getRandomFact();
+            factContainer.textContent = fact;
+            updateColorScheme(fact);
+        }
+
+        function updateColorScheme(fact) {
+            if (fact.includes("water")) {
+                document.body.style.backgroundColor = "#a0d8ef"; // Light blue
+            } else {
+                document.body.style.backgroundColor = "#f0f0f0"; // Default
+            }
+        }
+
+        function shareOnTwitter(fact) {
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(fact)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnLinkedIn(fact) {
+            const url = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(fact)}`;
+            window.open(url, '_blank');
+        }
+
+        generateFactButton.addEventListener('click', updateFact);
+        shareTwitterButton.addEventListener('click', () => shareOnTwitter(factContainer.textContent));
+        shareLinkedInButton.addEventListener('click', () => shareOnLinkedIn(factContainer.textContent));
+
+        // Initialize with a random fact
+        updateFact();
+    </script>
+</body>
+</html>
